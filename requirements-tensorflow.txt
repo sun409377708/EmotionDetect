@@ -1,7 +1,0 @@
-# 完整TensorFlow版本（需要Python 3.11）
-Flask==3.0.3
-tensorflow==2.16.1
-opencv-python-headless==4.10.0.84
-Pillow==10.4.0
-numpy==1.26.4
-gunicorn==22.0.0 

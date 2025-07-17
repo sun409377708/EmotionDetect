@@ -1,7 +1,0 @@
-# 轻量级版本 - 仅使用TensorFlow Lite
-Flask==3.0.3
-tflite-runtime==2.14.0
-opencv-python-headless==4.10.0.84
-Pillow==10.4.0
-numpy==1.26.4
-gunicorn==22.0.0 
