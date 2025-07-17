@@ -101,4 +101,9 @@ Temporary Items
 *.temp
 
 # 日志文件
-*.log 
+*.log
+
+# 大数据文件 - 超过GitHub 100MB限制
+archive/fer2013.csv
+archive/fer2013/fer2013.csv
+archive/fer2013/ 
