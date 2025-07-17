@@ -2,18 +2,18 @@
   "version": 2,
   "builds": [
     {
-      "src": "web_demo.py",
+      "src": "api/app.py",
       "use": "@vercel/python"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "web_demo.py"
+      "dest": "/api/app.py"
     }
   ],
   "functions": {
-    "web_demo.py": {
+    "api/app.py": {
       "maxDuration": 30
     }
   }
