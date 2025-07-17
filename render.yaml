@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: emotion-detect
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn web_demo:app --host=0.0.0.0 --port=$PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: FLASK_ENV
+        value: production 
