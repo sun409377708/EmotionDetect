@@ -28,8 +28,19 @@ def load_model():
     """加载训练好的模型"""
     global model
     try:
+        # 优先尝试加载TFLite模型（更轻量，兼容性更好）
+        try:
+            interpreter = tf.lite.Interpreter(model_path="emotion_model.tflite")
+            interpreter.allocate_tensors()
+            model = interpreter
+            print("✅ TFLite模型加载成功")
+            return True
+        except Exception as lite_error:
+            print(f"TFLite模型加载失败: {lite_error}")
+            
+        # 备选：加载H5模型
         model = tf.keras.models.load_model("best_emotion_model.h5")
-        print("✅ 模型加载成功")
+        print("✅ H5模型加载成功")
         return True
     except Exception as e:
         print(f"❌ 模型加载失败: {e}")
@@ -83,8 +94,23 @@ def predict_emotion(image_data):
             return None, None, None
         
         # 模型预测
-        predictions = model.predict(processed_image, verbose=0)
-        probabilities = predictions[0]
+        if hasattr(model, 'predict'):
+            # Keras H5模型
+            predictions = model.predict(processed_image, verbose=0)
+            probabilities = predictions[0]
+        else:
+            # TFLite模型
+            input_details = model.get_input_details()
+            output_details = model.get_output_details()
+            
+            # 设置输入
+            model.set_tensor(input_details[0]['index'], processed_image.astype(np.float32))
+            
+            # 运行推理
+            model.invoke()
+            
+            # 获取输出
+            probabilities = model.get_tensor(output_details[0]['index'])[0]
         
         # 获取预测结果
         predicted_class = int(np.argmax(probabilities))  # 转换为Python int
