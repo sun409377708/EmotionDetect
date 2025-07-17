@@ -1,0 +1,20 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "web_demo.py",
+      "use": "@vercel/python"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "web_demo.py"
+    }
+  ],
+  "functions": {
+    "web_demo.py": {
+      "maxDuration": 30
+    }
+  }
+} 

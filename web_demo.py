@@ -634,8 +634,11 @@ def main():
     print("\n⛔ 按 Ctrl+C 停止服务")
     print("="*60)
     
+    # 云部署支持
+    port = int(os.environ.get('PORT', 8080))
+    
     try:
-        app.run(host='0.0.0.0', port=8080, debug=False)
+        app.run(host='0.0.0.0', port=port, debug=False)
     except KeyboardInterrupt:
         print("\n👋 服务已停止")
     except Exception as e:
